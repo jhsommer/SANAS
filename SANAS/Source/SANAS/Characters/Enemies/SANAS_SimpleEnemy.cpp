@@ -5,8 +5,10 @@
 
 #include "SANAS_EController.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/WidgetComponent.h"
 #include "SANAS/Characters/Enemies/DA_Enemy_SimpleWeapon.h"
 #include "SANAS/Components/HealthComponent.h"
+#include "SANAS/UI/EnemyHealthbarWidget.h"
 
 
 // Sets default values
@@ -39,6 +41,16 @@ void ASANAS_SimpleEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	Sword->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("ik_sword"));
+
+	UUserWidget* W = HealthbarWidget->GetUserWidgetObject();
+	if (W)
+	{
+		UEnemyHealthbarWidget* HB = Cast<UEnemyHealthbarWidget>(W);
+		if (HB)
+		{
+			HB->SetHealthPercent(CurrentHealth/MaxHealth);
+		}
+	}
 }
 
 void ASANAS_SimpleEnemy::TryApplyingDamage(AActor* HitActor)
@@ -71,8 +83,20 @@ void ASANAS_SimpleEnemy::ReceiveDamage_Implementation(int Damage)
 		}
 		return;
 	}
+	
 	HealthComponent->SetHealth(TempHealth);
+	CurrentHealth = TempHealth;
 
+	UUserWidget* W = HealthbarWidget->GetUserWidgetObject();
+	if (W)
+	{
+		UEnemyHealthbarWidget* HB = Cast<UEnemyHealthbarWidget>(W);
+		if (HB)
+		{
+			HB->SetHealthPercent(CurrentHealth/MaxHealth);
+		}
+	}
+	
 	GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Black,  FString::Printf(TEXT("Damage: %d"), Damage));
 }
 

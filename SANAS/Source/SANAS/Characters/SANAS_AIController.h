@@ -7,9 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "SANAS_AIController.generated.h"
 
-const FGameplayTag SwordOriginSocket = FGameplayTag::RequestGameplayTag(TEXT("Sword.Hitbox.Origin"));
-const FGameplayTag SwordRadiusSocket = FGameplayTag::RequestGameplayTag(TEXT("Sword.Hitbox.Radius"));
-const FGameplayTag SwordLengthSocket = FGameplayTag::RequestGameplayTag(TEXT("Sword.Hitbox.Length"));
+
 
 UCLASS(Abstract)
 class SANAS_API ASANAS_AIController : public AAIController
@@ -26,6 +24,10 @@ protected:
 	TOptional<FTransform> CapsuleOrigin;
 	TOptional<float> CapsuleRadius;
 	TOptional<float> CapsuleLength;
+
+	const FName SwordOriginSocket = "Sword.Hitbox.Origin";
+	const FName SwordRadiusSocket = "Sword.Hitbox.Radius";
+	const FName SwordLengthSocket = "Sword.Hitbox.Length";
 
 public:
 	// Sets default values for this actor's properties

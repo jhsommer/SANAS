@@ -22,6 +22,9 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UHealthComponent> HealthComponent;
 
+	float MaxHealth;
+	float CurrentHealth;
+
 	virtual void TryApplyingDamage(AActor* HitActor);
 	
 };

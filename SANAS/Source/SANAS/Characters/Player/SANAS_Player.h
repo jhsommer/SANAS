@@ -19,10 +19,6 @@ struct FInputActionValue;
 
 DECLARE_EVENT(ASANAS_Player, FPlayerDead);
 
-const FGameplayTag OriginSocket = FGameplayTag::RequestGameplayTag(TEXT("Spear.Hitbox.Origin"));
-const FGameplayTag RadiusSocket = FGameplayTag::RequestGameplayTag(TEXT("Spear.Hitbox.Radius"));
-const FGameplayTag LengthSocket = FGameplayTag::RequestGameplayTag(TEXT("Spear.Hitbox.Length"));
-
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -78,6 +74,10 @@ class ASANAS_Player : public ASANAS_Character
 	TOptional<float> CapsuleLength;
 
 	FPlayerDead OnPlayerDeathEvent;
+
+	const FName OriginSocket = "Spear.Hitbox.Origin";
+	const FName RadiusSocket = "Spear.Hitbox.Radius";
+	const FName LengthSocket = "Spear.Hitbox.Length";
 
 public:
 	ASANAS_Player();

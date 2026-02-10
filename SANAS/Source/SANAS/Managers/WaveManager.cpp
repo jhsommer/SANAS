@@ -47,7 +47,11 @@ void AWaveManager::RecountEnemies()
 		if (IsValid(Enemy) && !Enemy->IsPendingKillPending() && !Enemy->IsActorBeingDestroyed())
 		{
 			Enemies.Add(Enemy);
+
+#if WITH_EDITOR
+			
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue,  FString::Printf(TEXT("Still Enemies Available")));
+#endif
 		}
 		
 	}
@@ -91,26 +95,13 @@ void AWaveManager::SpawnEnemies()
 	switch (CurrentWave)
 	{
 	case EWave::First:
-		// for (int i = 0; i < 3; i++)
-		// {
-		// 	ASANAS_SimpleEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_SimpleEnemy>(SimpleEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
-		// 	//Set Values of the Enemies depending on the wave
-		// 	UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
-		// }
-
-		// for (int i = 0; i < 2; i++)
-		// {
-		// 	ASANAS_TwinSwordEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_TwinSwordEnemy>(TwinSwordEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
-		// 	//Set Values of the Enemies depending on the wave
-		// 	UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
-		// }
-
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 3; i++)
 		{
-			ASANAS_Archer* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_Archer>(ArcherEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
+			ASANAS_SimpleEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_SimpleEnemy>(SimpleEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
 			//Set Values of the Enemies depending on the wave
 			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
 		}
+		
 		break;
 
 	case EWave::Second:
@@ -120,6 +111,14 @@ void AWaveManager::SpawnEnemies()
 			//Set Values of the Enemies depending on the wave
 			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
 		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			ASANAS_TwinSwordEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_TwinSwordEnemy>(TwinSwordEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
+		
 		break;
 
 	case EWave::Third:
@@ -129,21 +128,63 @@ void AWaveManager::SpawnEnemies()
 			//Set Values of the Enemies depending on the wave
 			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
 		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			ASANAS_TwinSwordEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_TwinSwordEnemy>(TwinSwordEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			ASANAS_Archer* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_Archer>(ArcherEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
 		break;
 
 	case EWave::Fourth:
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			ASANAS_SimpleEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_SimpleEnemy>(SimpleEnemyClass, EnemiesSpawnLocation);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			ASANAS_TwinSwordEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_TwinSwordEnemy>(TwinSwordEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			ASANAS_Archer* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_Archer>(ArcherEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
 			//Set Values of the Enemies depending on the wave
 			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
 		}
 		break;
 
 	case EWave::Fifth:
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			ASANAS_SimpleEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_SimpleEnemy>(SimpleEnemyClass, EnemiesSpawnLocation);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			ASANAS_TwinSwordEnemy* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_TwinSwordEnemy>(TwinSwordEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
+			//Set Values of the Enemies depending on the wave
+			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			ASANAS_Archer* EnemyToSpawn = GetWorld()->SpawnActorDeferred<ASANAS_Archer>(ArcherEnemyClass, EnemiesSpawnLocation,nullptr,nullptr, SpawnInfo.SpawnCollisionHandlingOverride);
 			//Set Values of the Enemies depending on the wave
 			UGameplayStatics::FinishSpawningActor(EnemyToSpawn,  EnemiesSpawnLocation);
 		}
@@ -153,10 +194,14 @@ void AWaveManager::SpawnEnemies()
 		break;
 	}
 
+
+	
 	for (TActorIterator<ASANAS_BaseEnemy> It(GetWorld());  It; ++It)
 	{
 		Enemies.Add(*It);
 		It->OnEnemyDeath().AddUFunction(this, "AreEnemiesAlive");
 	}
+	
+
 }
 

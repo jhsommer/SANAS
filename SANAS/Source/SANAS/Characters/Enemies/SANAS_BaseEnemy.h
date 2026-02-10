@@ -6,12 +6,15 @@
 #include "SANAS/Characters/SANAS_Character.h"
 #include "SANAS_BaseEnemy.generated.h"
 
+class UEnemyHealthbarWidget;
+class UWidgetComponent;
 DECLARE_EVENT(ASANAS_BaseEnemy, FEnemyDead);
 
-UCLASS()
+UCLASS(Abstract)
 class SANAS_API ASANAS_BaseEnemy : public ASANAS_Character
 {
 	GENERATED_BODY()
+
 
 	
 public:
@@ -21,8 +24,13 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
 	UPROPERTY(EditDefaultsOnly, Category="Animation")
 	TObjectPtr<UAnimMontage> DeathAnim;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UWidgetComponent> HealthbarWidget;
+
 
 public:
 	// Called every frame

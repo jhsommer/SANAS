@@ -65,9 +65,9 @@ void ASANAS_Player::BeginPlay()
 
 void ASANAS_Player::StartAttackWindow()
 {
-	CapsuleOrigin = SocketUtils::GetSocketTransform(Spear.Get(), OriginSocket.GetTagName());
-	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket.GetTagName(), RadiusSocket.GetTagName());
-	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket.GetTagName(), LengthSocket.GetTagName());
+	CapsuleOrigin = SocketUtils::GetSocketTransform(Spear.Get(), OriginSocket);
+	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket, RadiusSocket);
+	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket, LengthSocket);
 	
 }
 
@@ -77,9 +77,9 @@ void ASANAS_Player::TickAttackWindow(float FrameDeltaTime)
 	Params.AddIgnoredActor(this);
 	Params.AddIgnoredComponent(Spear.Get());
 	
-	CapsuleOrigin = SocketUtils::GetSocketTransform(Spear.Get(), OriginSocket.GetTagName());
-	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket.GetTagName(), RadiusSocket.GetTagName());
-	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket.GetTagName(), LengthSocket.GetTagName());
+	CapsuleOrigin = SocketUtils::GetSocketTransform(Spear.Get(), OriginSocket);
+	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket, RadiusSocket);
+	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(Spear.Get(), OriginSocket, LengthSocket);
 
 	if (!CapsuleRadius.IsSet() || !CapsuleLength.IsSet())
 	{
@@ -91,8 +91,12 @@ void ASANAS_Player::TickAttackWindow(float FrameDeltaTime)
 	const FCollisionShape Capsule = FCollisionShape::MakeCapsule(CapsuleRadius.GetValue(), CapsuleLength.GetValue()/2);
 
 	const bool bHit = GetWorld()->SweepMultiByProfile(Hits, CapsuleOrigin->GetLocation(), CapsuleOrigin->GetLocation(), CapsuleOrigin->GetRotation(), TEXT("MeleeTrace"), Capsule, Params);
+
+#if WITH_EDITOR
+	
 	DrawDebugCapsule(GetWorld(), CapsuleOrigin->GetLocation(), CapsuleLength.GetValue()/2, CapsuleRadius.GetValue(), CapsuleOrigin->GetRotation(), bHit ? FColor::Green : FColor::Red, false, -1.f, 0, 0.5f);
 
+#endif
 	// for (const  FHitResult& Hit : Hits)
 	// {
 	// 	GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Black, Hit.GetActor()->GetName());

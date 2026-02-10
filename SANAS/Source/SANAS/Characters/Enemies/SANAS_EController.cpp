@@ -29,9 +29,9 @@ void ASANAS_EController::StartAttackWindow()
 		return;
 	}
 	
-	CapsuleOrigin = SocketUtils::GetSocketTransform(CashedEnemy->GetSword(), SwordOriginSocket.GetTagName());
-	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket.GetTagName(), SwordRadiusSocket.GetTagName());
-	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket.GetTagName(), SwordLengthSocket.GetTagName());
+	CapsuleOrigin = SocketUtils::GetSocketTransform(CashedEnemy->GetSword(), SwordOriginSocket);
+	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket, SwordRadiusSocket);
+	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket, SwordLengthSocket);
 }
 
 void ASANAS_EController::TickAttackWindow(float FrameDeltaTime)
@@ -46,9 +46,9 @@ void ASANAS_EController::TickAttackWindow(float FrameDeltaTime)
 	Params.AddIgnoredActor(this);
 	Params.AddIgnoredComponent(CashedEnemy->GetSword());
 	
-	CapsuleOrigin = SocketUtils::GetSocketTransform(CashedEnemy->GetSword(), SwordOriginSocket.GetTagName());
-	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket.GetTagName(), SwordRadiusSocket.GetTagName());
-	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket.GetTagName(), SwordLengthSocket.GetTagName());
+	CapsuleOrigin = SocketUtils::GetSocketTransform(CashedEnemy->GetSword(), SwordOriginSocket);
+	CapsuleRadius = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket, SwordRadiusSocket);
+	CapsuleLength = SocketUtils::GetDistanceBetweenSockets(CashedEnemy->GetSword(), SwordOriginSocket, SwordLengthSocket);
 
 	if (!CapsuleRadius.IsSet() || !CapsuleLength.IsSet())
 	{
@@ -60,8 +60,10 @@ void ASANAS_EController::TickAttackWindow(float FrameDeltaTime)
 	const FCollisionShape Capsule = FCollisionShape::MakeCapsule(CapsuleRadius.GetValue(), CapsuleLength.GetValue()/2);
 
 	const bool bHit = GetWorld()->SweepMultiByProfile(Hits, CapsuleOrigin->GetLocation(), CapsuleOrigin->GetLocation(), CapsuleOrigin->GetRotation(), TEXT("MeleeTrace"), Capsule, Params);
-	DrawDebugCapsule(GetWorld(), CapsuleOrigin->GetLocation(), CapsuleLength.GetValue()/2, CapsuleRadius.GetValue(), CapsuleOrigin->GetRotation(), bHit ? FColor::Green : FColor::Red, false, -1.f, 0, 0.5f);
 
+#if WITH_EDITOR
+	DrawDebugCapsule(GetWorld(), CapsuleOrigin->GetLocation(), CapsuleLength.GetValue()/2, CapsuleRadius.GetValue(), CapsuleOrigin->GetRotation(), bHit ? FColor::Green : FColor::Red, false, -1.f, 0, 0.5f);
+#endif
 	if (bHit)
 	{
 		for (const FHitResult& Hit : Hits)

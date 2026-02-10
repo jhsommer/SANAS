@@ -14,18 +14,6 @@ class SANAS_API ASANAS_TWController : public ASANAS_AIController
 {
 	GENERATED_BODY()
 
-	// UPROPERTY(EditAnywhere, Category = "AI")
-	// TObjectPtr<UBehaviorTree> BehaviorTree;
-	//
-	//
-	//
-	// UPROPERTY()
-	// TSet<TWeakObjectPtr<AActor>> HitActors;
-	//
-	// TOptional<FTransform> CapsuleOrigin;
-	// TOptional<float> CapsuleRadius;
-	// TOptional<float> CapsuleLength;
-
 	UPROPERTY()
 	TObjectPtr<ASANAS_TwinSwordEnemy> CashedEnemy = nullptr;
 
